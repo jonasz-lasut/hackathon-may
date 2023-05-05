@@ -9,6 +9,11 @@ services:
       - MYSQL_DATABASE=monolith
       - MYSQL_USER=monolith
       - MYSQL_PASSWORD=arthur
+  atlas-migrate:
+    image: arigaio/atlas
+    volumes:
+      - $PWD/migrations:/migrations
+    command: [ "migrate", "apply", "--url", "mysql://root:secret-password@mysql:3306/monolith" ]
   dev-server:
     container_name: monolith-app
     build: .
@@ -16,3 +21,6 @@ services:
       - "5000:5000"
     environment:
       - MONOLITH_DB_HOST=mysql
+    depends_on:
+      - mysql
+      - atlas-migrate

@@ -4,12 +4,12 @@ ifndef $(GOPATH)
 endif
 
 build:
-	go build -o dist/main main.go
+	go build -o main main.go
 
 documentation:
 	go run main.go -docs
 
-development:
+development: development-teardown
 	docker compose up -d
 
 development-teardown:
