@@ -10,7 +10,10 @@ documentation:
 	go run main.go -docs
 
 development:
-	docker compose -f devel/docker-compose.yaml up -d
+	docker compose up -d
+
+development-teardown:
+	docker compose down --rmi local
 
 run:
 	go run main.go
